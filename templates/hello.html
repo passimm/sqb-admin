@@ -1,0 +1,10 @@
+<!doctype html>
+<title>Hello from Flask</title>
+{% if username %}
+  <h1>Hello {{ username }}!</h1>
+{% else %}
+	<form action="login" method="POST">
+		<font face="verdana"><b>Username</b><font/><input type="text" name="username"><br/>
+		<font face="verdana"><b>Password</b><font/><input type="password" name="password"><br/>
+		<input type=submit value="Go"></form>
+{% endif %}
