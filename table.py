@@ -1,17 +1,15 @@
-from sqlalchemy import Column, Integer, String, Sequence
-from sqlalchemy.ext.declarative import declarative_base
+from main import db
 
-Base = declarative_base()
-class User(Base):
+class User(db.Model):
     __tablename__ = 'user'
 
-    user_id = Column(Integer, primary_key=True)
-    username = Column(String)
-    pwd = Column(String)
-    money = Column(Integer)
-    yoyo_date = Column(String)
-    yoyo_trycount = Column(Integer)
-    share_date = Column(String)
+    user_id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String)
+    pwd = db.Column(db.String)
+    money = db.Column(db.Integer)
+    yoyo_date = db.Column(db.String)
+    yoyo_trycount = db.Column(db.Integer)
+    share_date = db.Column(db.String)
 
     def __repr__(self):
         return "<User(name='%s', password='%s')>" % (self.userName, self.pwd)
