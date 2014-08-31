@@ -1,0 +1,13 @@
+<!-- extend base layout -->
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Hi, {{user.username}}!</h1>
+{% for i in mkcoin.items %}
+<p>
+  {{i.user.username}} makes: <b>{{i.coins}}</b> at {{i.mktime}}
+</p>
+{% endfor %}
+{% if mkcoin.has_prev %}<a href="{{ url_for('hello', page = mkcoin.prev_num) }}"><< Newer items</a>{% else %}<< Newer items{% endif %} | 
+{% if mkcoin.has_next %}<a href="{{ url_for('hello', page = mkcoin.next_num) }}">Older items >></a>{% else %}Older items >>{% endif %}
+{% endblock %}
