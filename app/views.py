@@ -21,11 +21,13 @@ def login():
 	form = LoginForm()
 	if form.validate_on_submit():
 		user = User.query.filter(User.username == form.username.data).first()
-		if user.pwd == form.password.data:
-			login_user(user)
-			return redirect(url_for('hello'))
-		else:
+		if user is None:
+			flash('User %s does not exist!' % form.username.data)
+		elif user.pwd != form.password.data:
 			flash('Wrong password!')
+		else:
+			login_user(user)
+			return redirect(url_for('hello'))			
 	return render_template('login.html', title = 'Sign In', form = form)
 #end def login
 
@@ -39,6 +41,8 @@ def logout():
 @app.route('/index/<int:page>', methods = ['GET', 'POST'])
 @login_required
 def hello(page = 1):
+	if request.method == 'POST':
+		la = request.form.getlist('tn')
 	mkcoin = g.user.my_mkcoin().paginate(page, POSTS_PER_PAGE, False)
 	return render_template('index.html', user = current_user, mkcoin = mkcoin)
 
