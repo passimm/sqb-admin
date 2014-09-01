@@ -41,6 +41,7 @@ def logout():
 @app.route('/index/<int:page>', methods = ['GET', 'POST'])
 @login_required
 def hello(page = 1):
+	if request.forms['approve']
 	mkcoin = g.user.my_mkcoin().paginate(page, POSTS_PER_PAGE, False)
 	return render_template('index.html', user = current_user, mkcoin = mkcoin)
 
