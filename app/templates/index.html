@@ -2,17 +2,28 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Hi, {{user.username}}!</h1>
-<form action="" method="post" name="approve">
-{% for i in mkcoin.items %}
-<p>
-  {{i.user.username}} makes: <b>{{i.coins}}</b> at {{i.mktime}}
-  <input type="checkbox" name="tn" value="{{i.key_id}}" />
-</p>
-{% endfor %}
+	<table border="0" width = "600" cellspacing=”0″ cellpadding=”0″ >
+	  <tr>
+	    <td>
+	    	<h1>Hi, {{user.username}}!</h1>
+	    </td>
+	    <td colspan="6">
+		    <form action="" method="post" name="approve">
+			{% for i in mkcoin.items %}
+			<p>
+			  {{i.user.username}} makes: <b>{{i.coins}}</b> at {{i.mktime}}
+			  <input type="checkbox" name="tn" value="{{i.key_id}}" />
+			</p>
+			{% endfor %}
 
-{% if mkcoin.has_prev %}<a href="{{ url_for('hello', page = mkcoin.prev_num) }}"><< Newer items</a>{% else %}<< Newer items{% endif %} | 
-{% if mkcoin.has_next %}<a href="{{ url_for('hello', page = mkcoin.next_num) }}">Older items >></a>{% else %}Older items >>{% endif %}
-<p><input type="submit" value="Sign In"></p>
-</form>
+			{% if mkcoin.has_prev %}<a href="{{ url_for('hello', page = mkcoin.prev_num) }}"><< Newer items</a>{% else %}<< Newer items{% endif %} | 
+			{% if mkcoin.has_next %}<a href="{{ url_for('hello', page = mkcoin.next_num) }}">Older items >></a>{% else %}Older items >>{% endif %}
+			<p><input type="submit" value="Sign In"></p>
+			</form>	 
+	    </td>
+	  </tr>
+	</table>
 {% endblock %}
+
+
+
