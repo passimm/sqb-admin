@@ -1,0 +1,31 @@
+<!-- extend base layout -->
+{% extends "logined.html" %}
+
+{% block workspace %}
+	<table border="1" width = "600" cellspacing=”0″ cellpadding=”0″ >
+		<tr>
+			<th>head1</th>
+			<th>head2</th>
+		</tr>
+		<tr>
+			<td>content1</td>
+			<td>content2</td>
+		</tr>
+	</table>
+	<table border="0" cellspacing=”0″ cellpadding=”0″ >
+		<tr>
+			<th>
+			{% if type != 'charged' %}
+			<form action="" method="post" name="approve">
+				<input type="submit" value="{% if type=='approve' %}通过{% elif type=='charge' %}已充值{% elif type=='declined' %}撤销驳回&请求通过{% endif %}">
+			</form>
+			{% endif %}
+			</th>
+			<th>
+			<form action="{{ url_for('hello', page = page, type = type) }}">
+		    	<input type="submit" value="返回">
+			</form>
+			</th>
+		</tr>
+	</table>
+{% endblock %}

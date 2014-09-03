@@ -27,7 +27,7 @@ def login():
 			flash('Wrong password!')
 		else:
 			login_user(user)
-			return redirect(url_for('hello'))			
+			return redirect(url_for('hello', type = 'approve'))			
 	return render_template('login.html', title = 'Sign In', form = form)
 #end def login
 
@@ -36,15 +36,27 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('login'))
+#end def logout
 
-@app.route('/index', methods = ['GET', 'POST'])
-@app.route('/index/<int:page>', methods = ['GET', 'POST'])
+'''
+type -> {'approve', 'charge', 'declined', 'charged'}
+'''
+@app.route('/index/<type>', methods = ['GET', 'POST'])
+@app.route('/index/<type>/<int:page>', methods = ['GET', 'POST'])
 @login_required
-def hello(page = 1):
+def hello(type, page = 1):
 	if request.method == 'POST':
 		la = request.form.getlist('tn')
 	mkcoin = g.user.my_mkcoin().paginate(page, POSTS_PER_PAGE, False)
-	return render_template('index.html', user = current_user, mkcoin = mkcoin)
+	return render_template('index.html', user = current_user, mkcoin = mkcoin, type = type)
+#end def hello
 
+@app.route('/detail/<type>/<int:id>/<int:page>', methods = ['GET', 'POST'])
+@login_required
+def detail(type, id, page):
+	if request.method == 'POST':
+		return " %s %d success!" % (type, id)
+	return render_template('detail.html', type = type, page = page)
+#end def detail
 
 
