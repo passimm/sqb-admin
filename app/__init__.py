@@ -15,8 +15,8 @@ lm.login_view = 'login'
 from app import views, models
 
 # for debug
-from models import User, MkCoin
+from models import Admin, MkCoin
 print 'init!'
-for i, j in db.session.query(MkCoin, User).filter(MkCoin.user_id == User.user_id).all():
+for i, j in db.session.query(MkCoin, Admin).filter(MkCoin.user_id == Admin.user_id).all():
 	print(i)
 	print(j)

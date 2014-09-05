@@ -2,17 +2,7 @@
 {% extends "logined.html" %}
 
 {% block workspace %}
-	<li><h2>
-	{% if type=='approve' %}
-		待审核的请求
-	{% elif type=='charge' %}
-		待充值的请求
-	{% elif type=='declined' %}
-		已驳回的请求
-	{% else %}
-		已充值的请求
-	{% endif %}
-	</h2></li>
+	<h2>{% if type=='approve' %}待审核的请求{% elif type=='charge' %}待充值的请求{% elif type=='declined' %}已驳回的请求{% else %}已充值的请求{% endif %}</h2>
 	{% for i in mkcoin.items %}
 	  <p><a href="{{ url_for('detail', type = type, id = i.key_id, page = mkcoin.page ) }} ">{{i.user.username}} makes: <b>{{i.coins}}</b> at {{i.mktime}}</a></p>
 	{% endfor %}

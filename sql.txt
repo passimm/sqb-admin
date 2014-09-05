@@ -1,0 +1,14 @@
+CREATE TABLE `zqb`.`admin` (
+  `user_id` INT NOT NULL AUTO_INCREMENT,
+  `username` VARCHAR(45) NOT NULL,
+  `pwd` VARCHAR(45) NULL,
+  `super_user` SMALLINT NULL,
+  `can_approve_mobile` SMALLINT NULL,
+  `can_approve_alipay` SMALLINT NULL,
+  `can_charge` SMALLINT NULL,
+  `user_admin` SMALLINT NULL,
+  `can_statistic` SMALLINT NULL,
+  `approve_limit` INT NULL,
+  `charge_limit` INT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC));

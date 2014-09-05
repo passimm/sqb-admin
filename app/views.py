@@ -1,5 +1,5 @@
 from flask import render_template, request, g, url_for, redirect, flash
-from models import User, MkCoin
+from models import Admin, MkCoin
 from forms import LoginForm
 from app import app, db, lm
 from flask.ext.login import login_user, logout_user, current_user, login_required
@@ -8,7 +8,7 @@ POSTS_PER_PAGE = 2
 
 @lm.user_loader
 def load_user(user_id):
-	return User.query.get(int(user_id))
+	return Admin.query.get(int(user_id))
 #end def load_user
 
 @app.before_request
@@ -20,13 +20,13 @@ def before_request():
 def login():
 	form = LoginForm()
 	if form.validate_on_submit():
-		user = User.query.filter(User.username == form.username.data).first()
-		if user is None:
-			flash('User %s does not exist!' % form.username.data)
-		elif user.pwd != form.password.data:
+		admin = Admin.query.filter(Admin.username == form.username.data).first()
+		if admin is None:
+			flash('Admin %s does not exist!' % form.username.data)
+		elif admin.pwd != form.password.data:
 			flash('Wrong password!')
 		else:
-			login_user(user)
+			login_user(admin)
 			return redirect(url_for('hello', type = 'approve'))			
 	return render_template('login.html', title = 'Sign In', form = form)
 #end def login

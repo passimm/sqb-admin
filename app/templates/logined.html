@@ -2,12 +2,18 @@
 {% extends "base.html" %}
 
 {% block content %}
-	<table border="0" width = "1000" cellspacing=”0″ cellpadding=”0″ >
-	  <tr>
+	<table border="0" cellspacing=”0″ cellpadding="10">
+	  <tr valign="top" align="left">
 	    <td valign="top" align="left">
-	    	<h1>Hi, {{current_user.username}}!</h1>
+	    	<p><h1>Welcome, {{current_user.username}}!</h1></p>
+	    	<p>
+	    		<b>- 兑换请求操作 -</b>
+	    		<li><a href="{{ url_for('hello', type = 'approve') }} ">待审批请求</a></li>
+	    		<li><a href="{{ url_for('hello', type = 'charge') }} ">待充值请求</a></li>
+	    		<li><a href="{{ url_for('hello', type = 'declined') }} ">已驳回请求</a></li>
+	    		<li><a href="{{ url_for('hello', type = 'charged') }} ">已充值请求</a></li>
 	    </td>
-	    <td align="left" colspan="6">
+	    <td valign="top" align="lef	">
 	    	{% block workspace %}{% endblock %}
 	    </td>
 	  </tr>
