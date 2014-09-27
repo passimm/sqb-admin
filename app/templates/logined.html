@@ -6,14 +6,35 @@
 	  <tr valign="top" align="left">
 	    <td valign="top" align="left">
 	    	<p><h1>Welcome, {{current_user.username}}!</h1></p>
+	    	{% if current_user.super_user %}
+	    	<p>
+	    		<b>- 管理员 -</b>
+	    		<li><a href="{{ url_for('list_admin') }} ">查看/修改管理员</a></li>
+	    		<li><a href="{{ url_for('new_admin') }} ">新增管理员</a></li>
+	    	</p>
+	    	{% endif %}
 	    	<p>
 	    		<b>- 兑换请求操作 -</b>
+	    		{% if current_user.super_user or current_user.can_approve_mobile or current_user.can_approve_alipay %}
 	    		<li><a href="{{ url_for('hello', type = 'approve') }} ">待审批请求</a></li>
-	    		<li><a href="{{ url_for('hello', type = 'charge') }} ">待充值请求</a></li>
+	    		{% endif %}
+	    		{% if current_user.super_user or current_user.can_charge %}
+				<li><a href="{{ url_for('hello', type = 'charge') }} ">待充值请求</a></li>
+				{% endif %}
+	    		{% if current_user.super_user or current_user.can_approve_mobile or current_user.can_approve_alipay %}
 	    		<li><a href="{{ url_for('hello', type = 'declined') }} ">已驳回请求</a></li>
+				{% endif %}
 	    		<li><a href="{{ url_for('hello', type = 'charged') }} ">已充值请求</a></li>
+	    	</p>
+	    	{% if current_user.can_statistic %}
+	    	<p>
+	    	<b>- 统计 -</b>
+	    	<li><a href="{{ url_for('statistic') }} ">兑换请求统计</a></li>
+	    	<li><a href="{{ url_for('statistic') }} ">充值统计</a></li>
+	    	</p>
+	    	{% endif %}
 	    </td>
-	    <td valign="top" align="lef	">
+	    <td valign="top" align="left">
 	    	{% block workspace %}{% endblock %}
 	    </td>
 	  </tr>

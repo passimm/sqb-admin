@@ -1,0 +1,33 @@
+<!-- extend base layout -->
+{% extends "logined.html" %}
+
+{% block workspace %}
+	<h2>管理员列表</h2>
+	<table border="0" cellspacing=”0″ cellpadding="10">
+		<tr valign="top" align="left">
+			<th valign="top" align="left">管理员名</th>
+			<th valign="top" align="left">审核手机</th>
+			<th valign="top" align="left">审核支付宝</th>
+			<th valign="top" align="left">充值</th>
+			<th valign="top" align="left">管理用户</th>
+			<th valign="top" align="left">查看统计信息</th>
+			<th valign="top" align="left">每日审核限额</th>
+			<th valign="top" align="left">每日充值限额</th>
+	  	</tr>
+	{% for i in admin.items %}
+		<tr valign="top" align="left">
+			<td valign="top" align="left">{{ i.username }}</td>
+			<td valign="top" align="left">{{ i.can_approve_mobile }}</td>
+			<td valign="top" align="left">{{ i.can_approve_alipay }}</td>
+			<td valign="top" align="left">{{ i.can_charge }}</td>
+			<td valign="top" align="left">{{ i.user_admin }}</td>
+			<td valign="top" align="left">{{ i.can_statistic }}</td>
+			<td valign="top" align="left">{{ i.approve_limit }}</td>
+			<td valign="top" align="left">{{ i.charge_limit }}</td>
+			<td valign="top" align="left"><a href="{{ url_for('modify_admin', id = i.user_id) }} ">修改</a></td>
+	  	</tr>
+	{% endfor %}
+	</table>
+	{% if admin.has_prev %}<a href="{{ url_for('list_admin', page = admin.prev_num) }}"><< Previous</a>{% else %}<< Previous{% endif %} | 
+	{% if admin.has_next %}<a href="{{ url_for('list_admin', page = admin.next_num) }}">Next >></a>{% else %}Next >>{% endif %}
+{% endblock %}

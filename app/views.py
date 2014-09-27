@@ -1,6 +1,6 @@
 from flask import render_template, request, g, url_for, redirect, flash
 from models import Admin, MkCoin
-from forms import LoginForm
+from forms import LoginForm, ModifyAdminForm
 from app import app, db, lm
 from flask.ext.login import login_user, logout_user, current_user, login_required
 
@@ -27,7 +27,7 @@ def login():
 			flash('Wrong password!')
 		else:
 			login_user(admin)
-			return redirect(url_for('hello', type = 'approve'))			
+			return redirect(url_for('hello', type = 'blank'))			
 	return render_template('login.html', title = 'Sign In', form = form)
 #end def login
 
@@ -59,4 +59,40 @@ def detail(type, id, page):
 	return render_template('detail.html', type = type, page = page)
 #end def detail
 
+@app.route('/statistic', methods = ['GET', 'POST'])
+@login_required
+def statistic():
+	return "fix me!"
+
+@app.route('/listadmin', methods = ['GET', 'POST'])
+@login_required
+def list_admin(page = 1):
+	admin = Admin.query.filter(Admin.super_user == False).paginate(page, POSTS_PER_PAGE, False)
+	for i in admin.items:
+		print("mx: " + i.username)
+	return render_template('listadmin.html', admin = admin)
+
+@app.route('/newadmin', methods = ['GET', 'POST'])
+@login_required
+def new_admin():
+	return "fix me!"
+
+@app.route('/modifyadmin/<int:id>', methods = ['GET', 'POST'])
+@login_required
+def modify_admin(id):
+	admin = Admin.query.get(int(id))
+	form = ModifyAdminForm()
+	if form.validate_on_submit():
+		admin.can_approve_mobile = form.can_approve_mobile.data
+		admin.can_approve_alipay = form.can_approve_alipay.data
+		admin.can_charge = form.can_charge.data
+		admin.user_admin = form.user_admin.data
+		admin.can_statistic = form.can_statistic.data
+		admin.approve_limit = form.approve_limit.data
+		admin.charge_limit = form.charge_limit.data
+		db.session.commit()
+		return "success"
+	if request.method == 'GET':
+		form.setAdmin(admin)
+	return render_template('modifyadmin.html', admin = admin, id = id, form = form)
 

@@ -10,5 +10,5 @@ CREATE TABLE `zqb`.`admin` (
   `can_statistic` SMALLINT NULL,
   `approve_limit` INT NULL,
   `charge_limit` INT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE INDEX `id_UNIQUE` (`id` ASC));
+  PRIMARY KEY (`user_id`),
+  UNIQUE INDEX `id_UNIQUE` (`user_id` ASC));

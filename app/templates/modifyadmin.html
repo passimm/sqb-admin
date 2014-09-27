@@ -1,0 +1,23 @@
+<!-- extend base layout -->
+{% extends "logined.html" %}
+
+{% block workspace %}
+	<form action="" method="post" name="modify">
+		<h2>{{ admin.username }}</h2><br>
+		{{form.hidden_tag()}}
+		是否可以审批手机充值请求:{{form.can_approve_mobile}}<br>
+		是否可以审批支付宝充值请求:{{form.can_approve_alipay}}<br>
+		是否可以充值:{{form.can_charge}}<br>
+		是否可以管理用户信息:{{form.user_admin}}<br>
+		是否可以查看统计信息:{{form.can_statistic}}<br>
+		每日审批限额:{{form.approve_limit}}<br>
+        {% for error in form.errors.approve_limit %}
+        <span style="color: red;">[{{error}}]</span>
+        {% endfor %}<br>
+		每日充值限额:{{form.charge_limit}}<br>
+        {% for error in form.errors.approve_limit %}
+        <span style="color: red;">[{{error}}]</span>
+        {% endfor %}<br>
+		<input type="submit" value="确认修改" />
+	</form>
+{% endblock %}
