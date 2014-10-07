@@ -2,9 +2,17 @@
 {% extends "logined.html" %}
 
 {% block workspace %}
-	<form action="" method="post" name="modify">
-		<h2>{{ admin.username }}</h2><br>
+	<form action="" method="post" name="add">
 		{{form.hidden_tag()}}
+		用户名:{{form.username}}<br>
+        {% for error in form.errors.username %}
+        <span style="color: red;">[{{error}}]</span>
+        {% endfor %}<br>
+		密码:{{form.pwd}}<br>
+        {% for error in form.errors.pwd %}
+        <span style="color: red;">[{{error}}]</span>
+        {% endfor %}<br>
+		确认密码:{{form.confirm}}<br>
 		是否可以审批手机充值请求:{{form.can_approve_mobile}}<br>
 		是否可以审批支付宝充值请求:{{form.can_approve_alipay}}<br>
 		是否可以充值:{{form.can_charge}}<br>
@@ -18,6 +26,6 @@
         {% for error in form.errors.charge_limit %}
         <span style="color: red;">[{{error}}]</span>
         {% endfor %}<br>
-		<input type="submit" value="确认修改" />
+		<input type="submit" value="增加用户" />
 	</form>
 {% endblock %}
